@@ -233,8 +233,7 @@ class DateListFragment : Fragment() {
                         val item = itemSnapshot.getValue(DailyItem::class.java)
                         item?.let { dailyItems.add(it) }
                     }
-                    val innerAdapter = DailyScheduleAdapter(arrayListOf())
-                    innerAdapter.updateItems(dailyItems)
+                    val innerAdapter = DailyScheduleAdapter(dailyItems)
                     dailyScheduleAdapters.add(innerAdapter)
                 }
                 adapter.notifyDataSetChanged()
