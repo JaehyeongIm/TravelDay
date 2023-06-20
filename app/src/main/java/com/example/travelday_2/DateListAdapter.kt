@@ -117,7 +117,6 @@ class DateListAdapter(
 
         // 날짜와 요일을 출력
         holder.binding.dateTextView.text = "•${item} ($firstLetterOfDay)"
-
         holder.binding.outfitBtn.setOnClickListener{
             itemClickListener?.onOutfitClick(item)
         }
