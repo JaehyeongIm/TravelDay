@@ -227,6 +227,16 @@ class DateListFragment : Fragment() {
                 adapter.items.clear()
                 adapter.items.addAll(updatedDates)
 
+                snapshot.children.forEach { dateSnapshot ->
+                    val dailyItems = ArrayList<DailyItem>()
+                    dateSnapshot.children.forEach { itemSnapshot ->
+                        val item = itemSnapshot.getValue(DailyItem::class.java)
+                        item?.let { dailyItems.add(it) }
+                    }
+                    val innerAdapter = DailyScheduleAdapter(arrayListOf())
+                    innerAdapter.updateItems(dailyItems)
+                    dailyScheduleAdapters.add(innerAdapter)
+                }
                 adapter.notifyDataSetChanged()
             }
 
@@ -234,8 +244,8 @@ class DateListFragment : Fragment() {
                 // Handle error here
             }
         })
-
     }
+
 }
 
 

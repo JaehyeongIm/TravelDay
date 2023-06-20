@@ -47,7 +47,7 @@ class DailyScheduleAdapter(
     }
     fun updateItems(newItems: ArrayList<DailyItem>) {
         dailyItems.clear()
-        dailyItems.addAll(newItems)
+        dailyItems.addAll(newItems.sortedBy { it.time })
         notifyDataSetChanged()
     }
 }

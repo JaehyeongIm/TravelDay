@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.travelday_2.databinding.FragmentDailyAddBinding
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
+import kotlin.random.Random
 
 class DailyScheduleAddFragment : Fragment() {
     lateinit var binding: FragmentDailyAddBinding
@@ -54,13 +55,15 @@ class DailyScheduleAddFragment : Fragment() {
                 val msg = "$selectedHour:${String.format("%02d", selectedMinute)} ${taskEditText.text} 추가되었습니다"
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                 val userId = FirebaseAuth.getInstance().currentUser?.uid!!
+                val randomColorIndex = Random.nextInt(colors.size)
+                val randomColor = colors[randomColorIndex]
 
                 val task = taskEditText.text.toString()
                 val selectedCountry = arguments?.getString("클릭된 국가")
                 val selectedDate = arguments?.getString("클릭된 날짜")
                 val selectedTime = "${String.format("%02d", selectedHour)}:${String.format("%02d", selectedMinute)}"
                 if (selectedCountry != null && selectedDate!=null) {
-                    DBRef.writeDataToDatabase(userId,selectedCountry,selectedDate,selectedTime,task,colors[0])
+                    DBRef.writeDataToDatabase(userId,selectedCountry,selectedDate,selectedTime,task,randomColor)
                 }
                 else{
                     Toast.makeText(context,"널타입의 데이터를 받았습니다",Toast.LENGTH_SHORT).show()
