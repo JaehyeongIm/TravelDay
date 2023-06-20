@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelday_2.databinding.FragmentTraveladdBinding
+import com.example.travelday_2.databinding.TravelListRowBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -27,6 +28,7 @@ class TravelListFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
     private val currentDate: Date = Date()
+    lateinit var re:String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,8 +77,44 @@ class TravelListFragment : Fragment() {
                     val countryList = ArrayList<String>()
                     for (countrySnapshot in snapshot.children) {
                         countryList.add(countrySnapshot.key.toString())
+                        Date()
+
+                        run breaker@{
+                            var d = countrySnapshot.children.forEach { dateSnapshot ->
+                                val date = dateSnapshot.key
+                                var d = date!!.split("-")
+                                Log.i("디데이",Date(
+                                    d[0].toInt(),
+                                    d[1].toInt(),
+                                    d[2].toInt()
+                                ).toString())
+                                re =  calculateDday(
+                                    Date(
+                                        d[0].toInt(),
+                                        d[1].toInt(),
+                                        d[2].toInt()
+                                    )
+                                ).toString()
+                                Log.i(
+                                    "디데이",
+                                    calculateDday(
+                                        Date(
+                                            d[0].toInt(),
+                                            d[1].toInt(),
+                                            d[2].toInt()
+                                        )
+                                    ).toString()
+                                )
+
+                            return@breaker
+                            }
+                        }
+
+//                        Date(d[0].toInt(),d[1].toInt(),d[2].toInt())
+//                        Log.i("디데이",calculateDday(Date(d[0].toInt(),d[1].toInt(),d[2].toInt())).toString())
                     }
                     adapter.setData(countryList)
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {

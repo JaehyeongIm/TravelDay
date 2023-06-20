@@ -84,6 +84,7 @@ class DateListFragment : Fragment() {
         }
         binding.exchangeLayout.setOnClickListener {
             val country = arguments?.getString("클릭된 국가")
+
             val bundle = Bundle().apply {
                 putString("클릭된 국가", country)
             }
@@ -103,7 +104,7 @@ class DateListFragment : Fragment() {
     private fun getWeather(){
         val country = arguments?.getString("클릭된 국가")
         val requestQueue = Volley.newRequestQueue(requireContext())
-        val url = "http://api.openweathermap.org/data/2.5/weather?q="+country+"&appid="+"d74c3bbee7a3c497383271ff0d494542"
+        val url = "http://api.openweathermap.org/data/2.5/weather?q="+getName(country!!)+"&appid="+"d74c3bbee7a3c497383271ff0d494542"
 
         val stringRequest = StringRequest(
             Request.Method.GET,url,
@@ -171,7 +172,31 @@ class DateListFragment : Fragment() {
 
 
     }
-
+    fun getName(c : String):String{
+        var li = mutableMapOf<String,String>()
+        li.put("서울","seoul")
+        li.put("한국","korea")
+        li.put("일본","japan")
+        li.put("도쿄","tokyo")
+        li.put("미국","america")
+        li.put("인천","incheon")
+        li.put("중국","china")
+        li.put("프랑스","france")
+        li.put("파리","paris")
+        li.put("상하이","shanghai")
+        li.put("영국","england")
+        li.put("런던","london")
+        li.put("베를린","berlin")
+        li.put("독일","germany")
+        li.put("마드리드","madrid")
+        li.put("로마","rome")
+        for(i in li.keys){
+            if(i.equals(c)){
+                return li.get(i)!!
+            }
+        }
+        return c
+    }
     // 뒤로가기 버튼이 눌렸을 때 처리할 동작 구현
     private fun initBackStack() {
         val callback = object : OnBackPressedCallback(true) {
