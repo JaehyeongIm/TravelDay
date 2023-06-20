@@ -19,6 +19,8 @@
                 android:id="@+id/weatherLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="280dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
                 <ImageView
                     android:layout_margin="2dp"
@@ -33,7 +35,8 @@
                     android:textSize="12sp"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/exchangeLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
