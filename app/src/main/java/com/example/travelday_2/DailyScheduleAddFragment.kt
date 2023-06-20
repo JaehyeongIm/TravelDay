@@ -38,7 +38,7 @@ class DailyScheduleAddFragment : Fragment() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
-        val colors = arrayOf("#0000FF","#FF0000","#ADFF2F","#FFA500","#9370DB")
+        val colors = arrayOf("#0000FF", "#FF0000", "#ADFF2F", "#FFA500", "#9370DB", "#00FFFF", "#000000", "#808080", "#FF00FF", "#800000", "#008000", "#800080", "#008080", "#000080", "#FFFF00", "#00FF00", "#F08080", "#20B2AA", "#FF69B4", "#CD5C5C")
 
         val timeSetListener = TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
             val builder = AlertDialog.Builder(context)

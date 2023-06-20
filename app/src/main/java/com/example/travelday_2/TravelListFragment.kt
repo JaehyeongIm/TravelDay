@@ -129,17 +129,18 @@ class TravelListFragment : Fragment() {
         return format.parse(dateString) ?: Date()
     }
 
-    private fun getDatesBetween(startDate: Date, endDate: Date, selectedCountryIndex:Int) {
-        val dates = mutableListOf<Date>()
+    private fun getDatesBetween(startDate: Date, endDate: Date): java.util.ArrayList<String> {
+        val dateList = arrayListOf<String>()
         val calendar = Calendar.getInstance()
         calendar.time = startDate
 
         while (calendar.time.before(endDate) || calendar.time.equals(endDate)) {
             val result = calendar.time
-            val format = SimpleDateFormat("MM.dd", Locale.getDefault())
+            val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val formattedDate = format.format(result)
-            sharedViewModel.addDate(selectedCountryIndex, formattedDate)
+            dateList.add(formattedDate)
             calendar.add(Calendar.DATE, 1)
         }
+        return dateList
     }
 }

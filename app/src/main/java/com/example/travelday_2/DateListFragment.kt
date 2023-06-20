@@ -42,6 +42,9 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 class DateListFragment : Fragment() {
@@ -259,9 +262,37 @@ class DateListFragment : Fragment() {
                         val item = itemSnapshot.getValue(DailyItem::class.java)
                         item?.let { dailyItems.add(it) }
                     }
-                    val innerAdapter = DailyScheduleAdapter(dailyItems)
+                    val innerAdapter = DailyScheduleAdapter(arrayListOf())
+                    innerAdapter.updateItems(dailyItems)
                     dailyScheduleAdapters.add(innerAdapter)
                 }
+                //여기서 부터 상단 탭 구현
+
+                // 날짜 데이터를 정렬합니다
+                updatedDates.sort()
+                // 시작 날짜와 종료 날짜를 가져옵니다
+                val startDate = updatedDates.firstOrNull()
+                val endDate = updatedDates.lastOrNull()
+                val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val startDateFormat = format.parse(startDate)
+                val current = Calendar.getInstance().apply {
+                    // Remove the time part for accurate day difference
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }.time
+
+                val diff = startDateFormat.time - current.time
+                val dday = Math.ceil(diff.toDouble() / (24 * 60 * 60 * 1000)).toInt()
+                val travelPeriod = if (startDate != null && endDate != null) {
+                    "$startDate ~ $endDate"
+                } else {
+                    ""
+                }
+                binding.travelData.text = "$country\n$travelPeriod"
+                binding.dDayDateList.text = "D-$dday"
+
                 adapter.notifyDataSetChanged()
             }
 
