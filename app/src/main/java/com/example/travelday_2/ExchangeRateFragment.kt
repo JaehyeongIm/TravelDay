@@ -1,5 +1,6 @@
 package com.example.travelday_2
 
+import DailyScheduleAdapter
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
@@ -21,11 +22,16 @@ import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.example.travelday_2.databinding.FragmentDateListBinding
 import com.example.travelday_2.databinding.FragmentExchangeRateBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutionException
 
@@ -46,7 +52,7 @@ class ExchangeRateFragment : Fragment() {
     private var currencyRate = 0.0
 
     //lateinit var adapter: DateListAdapter
-    private val sharedViewModel: SharedViewModel by activityViewModels()
+    //private val sharedViewModel: SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,12 +69,88 @@ class ExchangeRateFragment : Fragment() {
         init()
         //initRecyclerView()
         initBackStack()
+        getEvent()
         //관찰
 //        sharedViewModel.countryList.observe(viewLifecycleOwner) { countryList ->
 //            adapter.notifyDataSetChanged()
 //        }
     }
 
+    fun getName(c : String):String{
+        var li = mutableMapOf<String,String>()
+        li.put("서울","seoul")
+        li.put("한국","korea")
+        li.put("일본","japan")
+        li.put("도쿄","tokyo")
+        li.put("미국","america")
+        li.put("인천","incheon")
+        li.put("중국","china")
+        li.put("프랑스","france")
+        li.put("파리","paris")
+        li.put("상하이","shanghai")
+        li.put("영국","england")
+        li.put("런던","london")
+        li.put("베를린","berlin")
+        li.put("독일","germany")
+        li.put("마드리드","madrid")
+        li.put("로마","rome")
+        for(i in li.keys){
+            if(i.equals(c)){
+                return li.get(i)!!
+            }
+        }
+        return c
+    }
+    private fun getEvent() {
+        var userId = FirebaseAuth.getInstance().currentUser?.uid!!
+        var country = arguments?.getString("클릭된 국가")!!
+
+        val dateRef = DBRef.userRef.child(userId!!).child(country!!)
+        dateRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val updatedDates = ArrayList<String>()
+                snapshot.children.forEach { dateSnapshot ->
+                    val date = dateSnapshot.key
+                    date?.let { updatedDates.add(it) }
+                }
+
+
+
+                //여기서 부터 상단 탭 구현
+
+                // 날짜 데이터를 정렬합니다
+                updatedDates.sort()
+                // 시작 날짜와 종료 날짜를 가져옵니다
+                val startDate = updatedDates.firstOrNull()
+                val endDate = updatedDates.lastOrNull()
+                val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val startDateFormat = format.parse(startDate)
+                val current = Calendar.getInstance().apply {
+                    // Remove the time part for accurate day difference
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }.time
+
+                val diff = startDateFormat.time - current.time
+                val dday = Math.ceil(diff.toDouble() / (24 * 60 * 60 * 1000)).toInt()
+                val travelPeriod = if (startDate != null && endDate != null) {
+                    "$startDate ~ $endDate"
+                } else {
+                    ""
+                }
+                binding.travelData.text = "$country\n$travelPeriod"
+                binding.dDayDateList.text = "D-$dday"
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error here
+            }
+        })
+    }
     private fun init(){
         result  = "weather"
         getWeather()
@@ -78,6 +160,7 @@ class ExchangeRateFragment : Fragment() {
             showWeatherDialog()
         }
         val selectedCountry = arguments?.getString("클릭된 국가")
+
         //val selectedDate = arguments?.getSerializable("클릭된 날짜") as SharedViewModel.Date
 //        val startDate = selectedCountry.dateList.firstOrNull()?.date
 //        val endDate = selectedCountry.dateList.lastOrNull()?.date
@@ -146,8 +229,9 @@ class ExchangeRateFragment : Fragment() {
 
     private fun getWeather(){
         val country = arguments?.getString("클릭된 국가")
+        //getName(country!!)
         val requestQueue = Volley.newRequestQueue(requireContext())
-        val url = "http://api.openweathermap.org/data/2.5/weather?q="+country+"&appid="+"d74c3bbee7a3c497383271ff0d494542"
+        val url = "http://api.openweathermap.org/data/2.5/weather?q="+getName(country!!)+"&appid="+"d74c3bbee7a3c497383271ff0d494542"
 
         val stringRequest = StringRequest(
             Request.Method.GET,url,
