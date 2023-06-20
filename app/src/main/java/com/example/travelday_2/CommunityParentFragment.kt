@@ -23,9 +23,9 @@ class CommunityParentFragment : Fragment() {
     }
 
     private fun initLayout() {
-        val communityItemFragment = CommunityItemFragment()
+        val communityMainFragment = CommunityMainFragment()
         childFragmentManager.beginTransaction().apply {
-            add(R.id.frag_container_community, communityItemFragment)
+            add(R.id.frag_container_community, communityMainFragment)
             commit()
         }
     }
