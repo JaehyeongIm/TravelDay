@@ -52,28 +52,28 @@ class DateListAdapter(
         }
 
         fun bind(date: String) {
-            val adapter = DailyScheduleAdapter(dailyList)
-            binding.innerRecyclerview.adapter = adapter
-            binding.innerRecyclerview.layoutManager = LinearLayoutManager(context)
-            getDailyItems(userId, country, date, adapter)
+            getDailyItems(userId, country, date)
         }
-    }
-    private fun getDailyItems(userId: String, country: String, date: String, adapter: DailyScheduleAdapter) {
-        val dailyItemsRef = DBRef.userRef.child(userId).child(country).child(date).child("tasklist")
-        dailyItemsRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val updatedDailyItems = ArrayList<DailyItem>()
-                snapshot.children.forEach { dailyItemSnapshot ->
-                    val dailyItem = dailyItemSnapshot.getValue(DailyItem::class.java)
-                    dailyItem?.let { updatedDailyItems.add(it) }
+        private fun getDailyItems(userId: String, country: String, date: String) {
+            val dailyItemsRef = DBRef.userRef.child(userId).child(country).child(date).child("tasklist")
+            dailyItemsRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val updatedDailyItems = ArrayList<DailyItem>()
+                    snapshot.children.forEach { dailyItemSnapshot ->
+                        val dailyItem = dailyItemSnapshot.getValue(DailyItem::class.java)
+                        dailyItem?.let { updatedDailyItems.add(it) }
+                    }
+                    val adapter = DailyScheduleAdapter(ArrayList())
+                    adapter.updateItems(updatedDailyItems)
+                    binding.innerRecyclerview.adapter = adapter
+                    binding.innerRecyclerview.layoutManager = LinearLayoutManager(context)
                 }
-                adapter.updateItems(updatedDailyItems)
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                // Handle error here
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error here
+                }
+            })
+        }
     }
 
 
