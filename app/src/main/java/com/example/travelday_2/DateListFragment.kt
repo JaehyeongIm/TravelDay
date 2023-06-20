@@ -216,10 +216,15 @@ class DateListFragment : Fragment() {
 
                 override fun onOutfitClick(data: String) {
                     val fragment = OutfitFragment()
+                    val bundle = Bundle()
+                    bundle.putString("클릭된 국가", country)
+                    bundle.putString("클릭된 날짜", data)
+                    fragment.arguments = bundle // Bundle을 Fragment에 설정합니다.
+
                     val fragmentManager = parentFragmentManager
                     val fragmentTransaction = fragmentManager.beginTransaction()
                     fragmentTransaction.replace(R.id.frag_container, fragment)
-                    fragmentTransaction.addToBackStack(null)
+                    fragmentTransaction.addToBackStack("OutfitFragment")
                     fragmentTransaction.commit()
                 }
             }
