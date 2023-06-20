@@ -2,6 +2,7 @@ package com.example.travelday_2
 
 import android.app.Activity.RESULT_OK
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -15,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.travelday_2.databinding.FragmentOutfitBinding
@@ -32,6 +34,8 @@ class OutfitFragment : Fragment() {
     lateinit var binding: FragmentOutfitBinding
     var realUri: Uri?=null
 
+    private val PREF_IMAGE_URI = "pref_image_uri"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +49,12 @@ class OutfitFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         requirePermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
+        initBackStack()
+
+        val savedImageUri = getSavedImageUri()
+        if(savedImageUri != null){
+            loadImage(savedImageUri)
+        }
     }
     private fun requirePermissions(permissions: Array<String>, requestCode: Int) {
         val context = requireContext()
@@ -125,6 +135,10 @@ class OutfitFragment : Fragment() {
         }
 
     }
+    fun loadImage(imageUri: Uri){
+        val bitmap = loadBitmap(imageUri)
+        binding.imageView.setImageBitmap(bitmap)
+    }
     fun loadBitmap(photoUri: Uri) : Bitmap?{
         try{
             return if(Build.VERSION.SDK_INT> Build.VERSION_CODES.O_MR1){
@@ -176,13 +190,12 @@ class OutfitFragment : Fragment() {
         if(resultCode == RESULT_OK){
             when(requestCode){
                 REQ_CAMERA->{
-                    realUri?.let { uri->
-                        val bitmap = loadBitmap(uri)
+                    realUri?.let{
+                            uri->val bitmap = loadBitmap(uri)
                         binding.imageView.setImageBitmap(bitmap)
-
+                        saveImageUri(uri)
                         realUri = null
                     }
-
                 }
                 REQ_GALLERY->{
                     data?.data.let { uri->
@@ -192,6 +205,26 @@ class OutfitFragment : Fragment() {
             }
         }
     }
+    private fun initBackStack() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                parentFragmentManager.popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
 
+    private fun getSavedImageUri(): Uri?{
+        val sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val imageUriString = sharedPreferences.getString(PREF_IMAGE_URI, null)
+        return imageUriString?.let{Uri.parse(it)}
+    }
+
+    private fun saveImageUri(uri: Uri){
+        val sharePreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val editor = sharePreferences.edit()
+        editor.putString(PREF_IMAGE_URI,uri.toString())
+        editor.apply()
+    }
 
 }

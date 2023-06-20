@@ -46,7 +46,7 @@ class DateListAdapter(
                 val fragmentManager = (binding.root.context as Fragment).parentFragmentManager
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.frag_container, fragment)
-                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.addToBackStack("OutfitFragment")
                 fragmentTransaction.commit()
             }
         }

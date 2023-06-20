@@ -1,6 +1,6 @@
 package com.example.travelday_2
 
-import android.content.ContentValues.TAG
+import TravelListAdapter
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.travelday.TravelListAdapter
 import com.example.travelday_2.databinding.FragmentTraveladdBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -105,25 +104,25 @@ class TravelListFragment : Fragment() {
                 }
             }}
         //remove, move 기능 구현
-            val simpleCallback=object: ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT){
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    adapter.moveItem(viewHolder.adapterPosition, target.adapterPosition)
+        val simpleCallback=object: ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                adapter.moveItem(viewHolder.adapterPosition, target.adapterPosition)
 
-                    return true
-                }
+                return true
+            }
 
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    adapter.removeItem(viewHolder.adapterPosition)
-                }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                adapter.removeItem(viewHolder.adapterPosition)
             }
-            val itemTouchHelper= ItemTouchHelper(simpleCallback)
-            itemTouchHelper.attachToRecyclerView(binding.recyclerView)
-            }
+        }
+        val itemTouchHelper= ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
+    }
     private fun convertStringToDate(dateString: String): Date {
         val format = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
         return format.parse(dateString) ?: Date()
