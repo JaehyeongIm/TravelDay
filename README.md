@@ -8,7 +8,7 @@
 * 여행 일정 관리와 커뮤니티 기능을 담고 있는 여행 앱 입니다
 * 안드로이드 앱이며 코틀린을 사용하여 4명이서 개발하였습니다
 
-##Skils
+## Skils
 <p>
 <img src= "https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white"/>
 <img src= "https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white"/>
