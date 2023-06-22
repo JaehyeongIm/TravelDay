@@ -1,4 +1,4 @@
-# 프로젝트명
+# 여행가는날
 
 <!-- [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
@@ -8,15 +8,16 @@
 * 여행 일정 관리와 커뮤니티 기능을 담고 있는 여행 앱 입니다
 * 안드로이드 앱이며 코틀린을 사용하여 4명이서 개발하였습니다
 
+##Skils
+<p>
+<img src= "https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white"/>
+<img src= "https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white"/>
+</p>
+
+
 ![](../header.png)
 
 ## 설치 방법
-
-OS X & 리눅스:
-
-```sh
-npm install my-crazy-module --save
-```
 
 윈도우:
 
@@ -41,18 +42,14 @@ npm test
 
 ## 업데이트 내역
 
-* 0.2.1
-    * 수정: 문서 업데이트 (모듈 코드 동일)
 * 0.2.0
-    * 수정: `setDefaultXYZ()` 메서드 제거
-    * 추가: `init()` 메서드 추가
+   
 * 0.1.1
-    * 버그 수정: `baz()` 메서드 호출 시 부팅되지 않는 현상 (@컨트리뷰터 감사합니다!)
+   
 * 0.1.0
-    * 첫 출시
-    * 수정: `foo()` 메서드 네이밍을 `bar()`로 수정
+    * 코드 정리 진행 중
 * 0.0.1
-    * 작업 진행 중
+    * apk 출시
 
 ## 정보
 
