@@ -337,15 +337,4 @@ class DateListFragment : Fragment() {
 
 
 
-////상단 탭에 국가이름, 날짜 데이터 및 디데이 표시
-//val startDate = country.dateList.firstOrNull()?.date
-//val endDate = country.dateList.lastOrNull()?.date
-//val travelPeriod = if (startDate != null && endDate != null) {
-//    "$startDate ~ $endDate"
-//} else {
-//    ""
-//}
-//binding.travelData.text=country.name +"\n " +travelPeriod
-//binding.dDayDateList.text="D-"+country.dDay
-
 

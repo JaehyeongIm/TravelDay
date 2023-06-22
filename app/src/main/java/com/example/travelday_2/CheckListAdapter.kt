@@ -36,7 +36,6 @@ class CheckListAdapter (val items:ArrayList<CheckListData>)
         }
     }
 
-
     fun removeItem(pos:Int){
         items.removeAt(pos)
         notifyItemRemoved(pos)

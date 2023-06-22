@@ -51,8 +51,7 @@ class ExchangeRateFragment : Fragment() {
     private lateinit var tv_test: TextView
     private var currencyRate = 0.0
 
-    //lateinit var adapter: DateListAdapter
-    //private val sharedViewModel: SharedViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,13 +66,9 @@ class ExchangeRateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        //initRecyclerView()
         initBackStack()
         getEvent()
-        //관찰
-//        sharedViewModel.countryList.observe(viewLifecycleOwner) { countryList ->
-//            adapter.notifyDataSetChanged()
-//        }
+
     }
 
     fun getName(c : String):String{
@@ -116,7 +111,6 @@ class ExchangeRateFragment : Fragment() {
 
 
 
-                //여기서 부터 상단 탭 구현
 
                 // 날짜 데이터를 정렬합니다
                 updatedDates.sort()
@@ -159,19 +153,6 @@ class ExchangeRateFragment : Fragment() {
 
             showWeatherDialog()
         }
-        val selectedCountry = arguments?.getString("클릭된 국가")
-
-        //val selectedDate = arguments?.getSerializable("클릭된 날짜") as SharedViewModel.Date
-//        val startDate = selectedCountry.dateList.firstOrNull()?.date
-//        val endDate = selectedCountry.dateList.lastOrNull()?.date
-//        val travelPeriod = if (startDate != null && endDate != null) {
-//            "$startDate ~ $endDate"
-//        } else {
-//            ""
-//        }
-//        binding.travelData.text=selectedCountry.name +"\n " +travelPeriod
-//        binding.dDayDateList.text="D-"+selectedCountry.dDay
-
 
         val spinner = binding.spinner
         val spinner2 = binding.spinner2
