@@ -25,7 +25,6 @@ class DateListAdapter(
     private val country: String,
     val items: ArrayList<String>
 ) : RecyclerView.Adapter<DateListAdapter.ViewHolder>() {
-    var dailyList = ArrayList<DailyItem>()
 
     interface OnItemClickListener {
         fun onItemClick(data: String)

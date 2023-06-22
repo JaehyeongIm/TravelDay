@@ -98,12 +98,6 @@ class DatePickDialogFragment : Fragment() {
             }, 500) // Wait for 500 milliseconds
         }
     }
-    private fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())  // '.' 대신에 '-'를 사용하였습니다.
-        return format.format(date)
-    }
-
 
     private fun getDatesBetween(startDate: Date, endDate: Date): ArrayList<String> {
         val dateList = arrayListOf<String>()

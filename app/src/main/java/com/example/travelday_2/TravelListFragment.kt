@@ -25,7 +25,6 @@ import kotlin.collections.ArrayList
 class TravelListFragment : Fragment() {
     lateinit var binding:FragmentTraveladdBinding
     lateinit var adapter: TravelListAdapter
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
     private val currentDate: Date = Date()
     lateinit var re:String
@@ -110,8 +109,7 @@ class TravelListFragment : Fragment() {
                             }
                         }
 
-//                        Date(d[0].toInt(),d[1].toInt(),d[2].toInt())
-//                        Log.i("디데이",calculateDday(Date(d[0].toInt(),d[1].toInt(),d[2].toInt())).toString())
+
                     }
                     adapter.setData(countryList)
 

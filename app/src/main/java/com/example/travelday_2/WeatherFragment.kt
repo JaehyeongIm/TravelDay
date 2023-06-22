@@ -26,8 +26,6 @@ class WeatherFragment : Fragment() {
     lateinit var binding:FragmentWeatherBinding
 
 
-    //lateinit var adapter: DateListAdapter
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,12 +37,8 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        //initRecyclerView()
         initBackStack()
-        //관찰
-//        sharedViewModel.countryList.observe(viewLifecycleOwner) { countryList ->
-//            adapter.notifyDataSetChanged()
-//        }
+
     }
 
     private fun init(){
