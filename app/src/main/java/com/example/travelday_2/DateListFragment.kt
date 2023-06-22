@@ -248,7 +248,8 @@ class DateListFragment : Fragment() {
 
                     val fragmentManager = parentFragmentManager
                     val fragmentTransaction = fragmentManager.beginTransaction()
-                    fragmentTransaction.replace(R.id.frag_container, fragment)
+                    fragmentTransaction.add(R.id.frag_container, fragment)
+                    fragmentTransaction.hide(this@DateListFragment)
                     fragmentTransaction.addToBackStack("OutfitFragment")
                     fragmentTransaction.commit()
                 }
