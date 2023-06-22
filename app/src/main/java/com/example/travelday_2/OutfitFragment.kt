@@ -200,6 +200,10 @@ class OutfitFragment : Fragment() {
                 REQ_GALLERY->{
                     data?.data.let { uri->
                         binding.imageView.setImageURI(uri)
+                        if (uri != null) {
+                            saveImageUri(uri)
+                        }
+
                     }
                 }
             }
