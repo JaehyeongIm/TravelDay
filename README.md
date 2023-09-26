@@ -17,8 +17,13 @@
 5. 사진 첨부
 
 ## Application Version
-## Development
+minSdkVersion:30
+targetSdlVerson:32
+## Development Environment
+Android Studio Flamingo
+Firebase
 ## APIs
+
 ## Skils
 <p>
 <img src= "https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white"/>
