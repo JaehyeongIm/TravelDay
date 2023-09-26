@@ -17,12 +17,14 @@
 5. 사진 첨부
 
 ## Application Version
-*minSdkVersion:30
-*targetSdlVerson:32
+* minSdkVersion:30
+* targetSdlVerson:32
 ## Development Environment
-*Android Studio Flamingo
-*Firebase
+* Android Studio Flamingo
+* Firebase
 ## APIs
+* 환율
+* 날씨
 
 ## Skils
 <p>
