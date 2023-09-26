@@ -10,6 +10,13 @@
 * 참여자:임재형,김소희,김도현,김창성
 * 기간:23.04.26 ~ 23.06.21
 
+## 기능
+1. 여행 일정 수립 
+2. 여행 커뮤니티
+3. 체크리스트
+4. 환율, 날씨
+5. 사진 첨부
+
 ## Skils
 <p>
 <img src= "https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white"/>
