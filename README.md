@@ -28,10 +28,6 @@
 
 ![](../header.png)
 
-
-
-
-
 ## 업데이트 내역
 
 * 0.1.0
@@ -43,10 +39,7 @@
 
 임재형 – dlawogud517@gmail.com
 
-
-[https://github.com/JaehyeongIm/TravelDay](https://github.com/dbader/)
-
-
+https://github.com/JaehyeongIm
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
