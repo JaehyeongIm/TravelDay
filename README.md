@@ -9,6 +9,7 @@
 * 건국대 3-1 수업인 모바일 프로그래밍 수업에서 위 앱 개발 프로젝트를 진행하였습니다.
 * 참여자:임재형,김소희,김도현,김창성 (건국대 컴퓨터공학과 4인)
 * 기간:23.04.26 ~ 23.06.21
+* 시연영상: https://drive.google.com/file/d/1CwlZT31FRVsOTbHZReinc53svOClUOTj/view?usp=sharing
 ## Introduction
 1. 여행 일정 수립 
 2. 여행 커뮤니티
